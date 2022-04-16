@@ -5,7 +5,11 @@
 </script>
 
 {#each nodes as node}
-  <div class="m-2 p-2 px-3 border rounded text-left">
+  <div
+    class={`m-2 p-2 px-3 border rounded ${
+      node.children ? "text-left" : "text-center"
+    }`}
+  >
     {node.name ?? ""}
 
     {#if node.children}

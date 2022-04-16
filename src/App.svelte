@@ -5,18 +5,18 @@
   import type { RawNode } from "./lib/normalize"
   import { normalize } from "./lib/normalize"
 
-  let yamlData = `
-    - name: Root
-      children:
-        - name: Child 1
-          children: "I'm a single child"
-        - Child 2
-        - n: Child 3
-          c:
-            - Grandchild 1
-            - Grandchild 2
-            - Grandchild 3
-        - [1,2,3]
+  let yamlData = `# Sample Data
+- name: Root
+  children:
+    - name: Child 1
+      children: "I'm a single child"
+    - Child 2
+    - n: Child 3
+      c:
+        - Grandchild 1
+        - Grandchild 2
+        - Grandchild 3
+    - children: [1,2,3]
   `
   let data, normalizedData
 
@@ -37,8 +37,8 @@
   <h1>Doml</h1>
   <p>Render Yaml as DOM</p>
 
-  <div class="container mx-auto grid grid-cols-2">
-    <textarea class="border rounded" bind:value={yamlData} />
+  <div class="container mx-auto grid grid-cols-2 gap-4">
+    <textarea class="p-4 border rounded" bind:value={yamlData} />
     <div class="-mt-2">
       <DataNodes nodes={normalizedData} />
     </div>
