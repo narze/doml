@@ -18,7 +18,7 @@
         - Grandchild 3
     - children: [1,2,3]`
 
-  let yamlData = window.localStorage.getItem("domlData") ?? defaultData
+  let yamlData = window.localStorage.getItem("domlData") || defaultData
   let data, normalizedData, error
 
   $: try {
