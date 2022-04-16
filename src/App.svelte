@@ -5,7 +5,7 @@
   import type { RawNode } from "./lib/normalize"
   import { normalize } from "./lib/normalize"
 
-  let yamlData = `# Sample Data
+  const defaultData = `# Sample Data
 - name: Root
   children:
     - name: Child 1
@@ -16,14 +16,18 @@
         - Grandchild 1
         - Grandchild 2
         - Grandchild 3
-    - children: [1,2,3]
-  `
-  let data, normalizedData
+    - children: [1,2,3]`
+
+  let yamlData = window.localStorage.getItem("domlData") ?? defaultData
+  let data, normalizedData, error
 
   $: try {
     data = yaml.load(yamlData) as RawNode[]
+    window.localStorage.setItem("domlData", yamlData)
+    error = null
   } catch (e) {
     console.log(e)
+    error = e.message
   }
 
   $: if (data) {
@@ -40,6 +44,13 @@
   <div class="container mx-auto grid grid-cols-2 gap-4">
     <textarea class="font-mono p-4 border rounded" bind:value={yamlData} />
     <div class="-mt-2">
+      {#if error}
+        <div
+          class="bg-red-500 text-white p-2 m-2 rounded text-left text-xs font-mono"
+        >
+          {@html error.replaceAll("\n", "<br>")}
+        </div>
+      {/if}
       <DataNodes nodes={normalizedData} />
     </div>
   </div>
