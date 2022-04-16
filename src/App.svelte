@@ -1,10 +1,11 @@
 <script lang="ts">
   import yaml from "js-yaml"
+  import DataNodes from "./DataNodes.svelte"
 
   import type { RawNode } from "./lib/normalize"
   import { normalize } from "./lib/normalize"
 
-  let data: RawNode[] = yaml.load(`
+  let yamlData = `
     - name: Root
       children:
         - name: Child 1
@@ -15,9 +16,18 @@
             - Grandchild 1
             - Grandchild 2
             - Grandchild 3
-  `)
+  `
+  let data, normalizedData
 
-  $: normalizedData = normalize(data)
+  $: try {
+    data = yaml.load(yamlData) as RawNode[]
+  } catch (e) {
+    console.log(e)
+  }
+
+  $: if (data) {
+    normalizedData = normalize(data)
+  }
 
   console.log({ data, normalizedData })
 </script>
@@ -25,6 +35,13 @@
 <main>
   <h1>Doml</h1>
   <p>Render Yaml as DOM</p>
+
+  <div class="container mx-auto grid grid-cols-2">
+    <textarea class="border rounded" bind:value={yamlData} />
+    <div class="-mt-2">
+      <DataNodes nodes={normalizedData} />
+    </div>
+  </div>
 </main>
 
 <style>
