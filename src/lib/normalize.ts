@@ -1,6 +1,11 @@
 export type RawNode =
   | NodeName
-  | { name: NodeName; children?: RawNode | RawNode[] }
+  | {
+      name: NodeName
+      n: NodeName
+      children?: RawNode | RawNode[]
+      c?: RawNode | RawNode[]
+    }
 export type NormalizedNode = { name: NodeName; children?: NormalizedNode[] }
 export type NodeName = string | number
 
@@ -14,7 +19,7 @@ export function normalize(node: RawNode | RawNode[]): NormalizedNode[] {
       } else if (typeof n === "string" || typeof n === "number") {
         return { name: `${n}` }
       } else {
-        return { name: n.name, children: normalize(n.children) }
+        return { name: n.name ?? n.n, children: normalize(n.children ?? n.c) }
       }
     })
     .filter((n) => n)

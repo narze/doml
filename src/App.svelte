@@ -11,11 +11,12 @@
         - name: Child 1
           children: "I'm a single child"
         - Child 2
-        - name: Child 3
-          children:
+        - n: Child 3
+          c:
             - Grandchild 1
             - Grandchild 2
             - Grandchild 3
+        - [1,2,3]
   `
   let data, normalizedData
 

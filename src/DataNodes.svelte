@@ -5,8 +5,8 @@
 </script>
 
 {#each nodes as node}
-  <div class="m-2 p-2 border rounded text-left">
-    {node.name}
+  <div class="m-2 p-2 px-3 border rounded text-left">
+    {node.name ?? ""}
 
     {#if node.children}
       <svelte:self nodes={node.children} />
