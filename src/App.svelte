@@ -38,7 +38,7 @@
   <p>Render Yaml as DOM</p>
 
   <div class="container mx-auto grid grid-cols-2 gap-4">
-    <textarea class="p-4 border rounded" bind:value={yamlData} />
+    <textarea class="font-mono p-4 border rounded" bind:value={yamlData} />
     <div class="-mt-2">
       <DataNodes nodes={normalizedData} />
     </div>
